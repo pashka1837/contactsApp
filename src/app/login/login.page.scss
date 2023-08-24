@@ -1,0 +1,15 @@
+.loginCard {
+    display: grid;
+    width: 70vw;
+    grid-gap: 20px;
+    padding: 10% 0;  
+}
+
+.loginBtns {    
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+}
+
+ion-content {
+    --background: var(--ion-color-primary);
+}

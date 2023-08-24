@@ -13,6 +13,8 @@ export class LoginPage implements OnInit {
   constructor(private fb: FormBuilder, private authServ: AuthService, public router: Router) {}
 
   authFail = false;
+  userName:string;
+  password: string;
   
 
   form = this.fb.group({
@@ -27,11 +29,14 @@ export class LoginPage implements OnInit {
  });
 
   ngOnInit() {
+    if(this.authServ.validate(this.userName, this.password)) this.router.navigate(['/contacts'])
   }
 
   onSubmit(unInput, psInput) {    
     let userName =  this.fc.userName;
     let password =  this.fc.password;
+    this.userName = userName.value
+    this.password = password.value
     unInput.value = ``;
     psInput.value = ``;
     if(this.authServ.validate(userName.value, password.value)) this.router.navigate(['/contacts'])

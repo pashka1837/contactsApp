@@ -1,12 +1,28 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons color="primary" slot="start">
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons color="light" slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Page Two</ion-title>
+    <ion-title>Contact</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <h1>{{contact| json}}</h1>
+<ion-content color="dark" [fullscreen]="true">
+  <!-- <ion-text>{{contact |json}}</ion-text> -->
+  <ion-card color="dark">
+    <ion-avatar slot="start">
+      <img
+        alt="Silhouette of a person's head"
+        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+      />
+    </ion-avatar>
+    <ion-label>
+      <h1>{{contact.name.display}}</h1>
+      <p>{{contact.phones[0].number}}</p>
+      <p>{{contact.organization?.company}}</p>
+    </ion-label>
+    <!-- <ion-card-title>{{contact.name.display}}</ion-card-title>
+    <ion-label color="dark">{{contact.phones[0].number}}</ion-label>
+    <ion-label color="dark">{{contact.organization?.company}}</ion-label> -->
+  </ion-card>
 </ion-content>

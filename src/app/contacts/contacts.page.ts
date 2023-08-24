@@ -19,9 +19,9 @@ export class ContactsPage implements OnInit {
 
 
   ngOnInit(): void {
-    // this.authServ.redirect();
+    this.authServ.redirect();
     this.getContactsPermit();
-  }
+  } 
 
   async getContactsPermit() {
   //  this.permission = Contacts.requestPermissions().subscribe(v=>)
@@ -59,8 +59,8 @@ export class ContactsPage implements OnInit {
      this.errorMsg = e;
   } 
 
-  openContact(cont) {
-    this.router.navigate(['/contact'], {state: {cont}})
+  openContact(contact) {
+    this.router.navigate(['/contact'], {state: {contact}})
     
   }
 

@@ -5,22 +5,23 @@
 </ion-header>
 
 <ion-content color="light" [fullscreen]="true">
-  <ion-card>{{contacts |json}}</ion-card>
-  <!-- <ion-grid *ngFor="let contact of contacts" class="gridCenter"> -->
-  <!-- [routerLink]="['/contact']" [state]="contact" -->
-  <!-- <ion-card class="contact gridCenter" (click)="openContact(contact)">
+  <!-- <ion-card>{{contacts |json}}</ion-card> -->
+  <ion-grid *ngFor="let contact of contacts" class="gridCenter">
+    <ion-card class="contact gridCenter" (click)="openContact(contact)">
       <div>
         <ion-card-title>{{filterName(contact)}}</ion-card-title>
         <br />
         <ion-text color="dark">{{filterPhone(contact)}}</ion-text>
       </div>
       <ion-icon name="person-circle-outline"></ion-icon>
-    </ion-card> -->
-  <ion-list *ngFor="let contact of contacts" color="light" [inset]="true">
+    </ion-card>
+    <!-- <ion-list *ngFor="let contact of contacts" color="light" [inset]="true">
     <ion-item>
       <ion-label>{{filterName(contact)}}</ion-label>
       <p>{{filterPhone(contact)}}</p>
     </ion-item>
-  </ion-list>
-  <!-- </ion-grid> -->
+  </ion-list> -->
+  </ion-grid>
 </ion-content>
+
+<!-- [routerLink]="['/contact']" [state]="contact" -->

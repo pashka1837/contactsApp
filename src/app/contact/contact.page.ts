@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -9,10 +9,10 @@ import { AuthService } from '../services/auth.service';
 export class ContactPage implements OnInit {
   constructor( private isAuth: AuthService) { }
   contact: any;
+  
   ngOnInit(): void {
     // this.isAuth.redirect();
-    this.contact = history.state;
-    
+    this.contact = history.state.contact;  
   }
 
 }

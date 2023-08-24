@@ -5,9 +5,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{permission}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>{{contacts |json}}</ion-card>
+  <ion-grid *ngFor="let contact of contacts" class="gridCenter">
+    <!-- [routerLink]="['/contact']" [state]="contact" -->
+    <ion-card class="contact gridCenter" (click)="openContact(contact)">
+      <div>
+        <ion-card-title>{{filterName(contact)}}</ion-card-title>
+        <br />
+        <ion-text color="dark">{{filterPhone(contact)}}</ion-text>
+      </div>
+      <ion-icon name="person-circle-outline"></ion-icon>
+    </ion-card>
+  </ion-grid>
 </ion-content>

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   constructor(private router: Router) { }
   
-  userName = `greetGo`;
+  userName = `1`;
   password = `1`;
   isAuthed: boolean = false;
 

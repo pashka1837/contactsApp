@@ -7,6 +7,8 @@
         </ion-text>
 
         <ion-input
+          [color]="fc.userName.errors?.noSpaceValidation &&'danger'"
+          color="danger"
           label="Username"
           label-placement="floating"
           fill="outline"
@@ -21,6 +23,7 @@
         ></app-auth-error>
 
         <ion-input
+          [color]="fc.password.errors?.noSpaceValidation &&'danger'"
           type="password"
           label="Password"
           label-placement="floating"

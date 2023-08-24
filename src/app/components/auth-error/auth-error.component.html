@@ -1,1 +1,2 @@
-<ion-label color="danger"></ion-label>
+<ion-label *ngIf="ifRequired()" color="danger">{{ messageReq }}</ion-label>
+<ion-label *ngIf="ifInvalid()" color="danger">{{ messageInval }}</ion-label>

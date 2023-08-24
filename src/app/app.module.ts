@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthErrorComponent } from './components/auth-error/auth-error.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthErrorComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -34,7 +34,7 @@ export class LoginPage implements OnInit {
     let password =  this.fc.password;
     unInput.value = ``;
     psInput.value = ``;
-    if(this.authServ.validate(userName.value, password.value)) this.router.navigate(['/home'])
+    if(this.authServ.validate(userName.value, password.value)) this.router.navigate(['/contacts'])
     else this.authFail = true;
   }
 

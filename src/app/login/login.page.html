@@ -1,19 +1,20 @@
 <ion-content class="" [fullscreen]="true">
   <ion-grid style="height: 100%" class="gridCenter">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit(userName, password)">
       <ion-card class="loginCard gridCenter">
         <ion-text color="primary">
           <h1>Login</h1>
         </ion-text>
 
         <ion-input
-          [color]="fc.userName.errors?.noSpaceValidation &&'danger'"
-          color="danger"
+          [color]="fc.userName.errors?.noSpaceValidation  &&'danger'"
           label="Username"
           label-placement="floating"
           fill="outline"
           placeholder="Username"
+          (keydown)="clear()"
           formControlName="userName"
+          #userName
         ></ion-input>
 
         <app-auth-error
@@ -30,6 +31,7 @@
           fill="outline"
           placeholder="Password"
           formControlName="password"
+          #password
         ></ion-input>
 
         <app-auth-error
@@ -37,6 +39,10 @@
           messageReq="Password is required"
           messageInval="Password can`t contain spaces"
         ></app-auth-error>
+
+        <ion-label color="danger" *ngIf="authFail">
+          Wrong Username or Password</ion-label
+        >
 
         <ion-grid class="loginBtns gridCenter">
           <ion-button

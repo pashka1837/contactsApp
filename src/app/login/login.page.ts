@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { myValidator } from '../validators/nospace.validator';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,30 +10,40 @@ import { myValidator } from '../validators/nospace.validator';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  form: any;
+  constructor(private fb: FormBuilder, private authServ: AuthService, public router: Router) {}
 
-  constructor(fb: FormBuilder) {
-    this.form = fb.group({
-     userName: ['', [
-        Validators.required,
-        myValidator.noSpaceValidation
-     ]],
-     password: ['',[
-        Validators.required,
-        myValidator.noSpaceValidation
-     ]]
-  })
-   }
+  authFail = false;
+  
+
+  form = this.fb.group({
+    userName: ['', [
+       Validators.required,
+       myValidator.noSpaceValidation,
+    ]],
+    password: ['',[
+       Validators.required,
+       myValidator.noSpaceValidation,
+    ]]
+ });
 
   ngOnInit() {
   }
 
-  onSubmit() {
-    console.log(this.fc)
+  onSubmit(unInput, psInput) {    
+    let userName =  this.fc.userName;
+    let password =  this.fc.password;
+    unInput.value = ``;
+    psInput.value = ``;
+    if(this.authServ.validate(userName.value, password.value)) this.router.navigate(['/home'])
+    else this.authFail = true;
+  }
+
+  clear() {
+    this.authFail = false;
   }
 
   get fc() {
-    return this.form.controls
+    return this.form.controls;
   }
 
 }

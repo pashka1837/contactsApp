@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'blanc',
+  appId: 'com.pashka1837.contactsApp',
+  appName: 'contacts-app',
   webDir: 'www',
   server: {
     androidScheme: 'https'

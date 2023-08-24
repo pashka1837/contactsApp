@@ -16,10 +16,10 @@ export class AuthService {
     this.isAuthed = true;
     return true;
   }
-   return false
+   return false;
   }
 
   redirect() {
-    if(!this.isAuthed) this.router.navigate(['/login'])
+    if(!this.isAuthed) this.router.navigate(['/login']);
   }  
 }

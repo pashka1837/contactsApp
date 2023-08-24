@@ -1,0 +1,7 @@
+{
+  "name": "blanc",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

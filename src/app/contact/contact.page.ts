@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-contact',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact.page.scss'],
 })
 export class ContactPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor( private isAuth: AuthService) { }
+  contact: any;
+  ngOnInit(): void {
+    // this.isAuth.redirect();
+    this.contact = history.state;
+    
   }
 
 }

@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthErrorComponent } from './components/auth-error/auth-error.component';
 import { AuthService } from './services/auth.service';
+import { ContactPipe } from './contact.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ContactPipe],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService],
   bootstrap: [AppComponent],

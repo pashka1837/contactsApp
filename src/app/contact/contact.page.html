@@ -8,21 +8,68 @@
 </ion-header>
 
 <ion-content color="dark" [fullscreen]="true">
-  <!-- <ion-text>{{contact |json}}</ion-text> -->
   <ion-card color="dark">
-    <ion-avatar slot="start">
-      <img
-        alt="Silhouette of a person's head"
-        src="https://ionicframework.com/docs/img/demos/avatar.svg"
-      />
-    </ion-avatar>
+    <ion-text></ion-text>
+    <br />
+
+    <ion-text>{{contact |json}}</ion-text>
     <ion-label>
+      <h1>{{name}}</h1>
+    </ion-label>
+
+    <div *ngFor="let d of phones ">
+      <ion-label>
+        <h1>{{d.type}}: {{d.number}}</h1>
+      </ion-label>
+    </div>
+
+    <div *ngIf="organization">
+      <ion-label *ngFor="let prop of organization | keyvalue">
+        <h1 *ngIf="prop.value">{{prop.key}}: {{prop.value}}</h1>
+      </ion-label>
+    </div>
+
+    <div *ngIf="birthday">
+      <ion-label> Birthday: {{birthday}} </ion-label>
+    </div>
+
+    <div *ngIf="contact.note">
+      <ion-label> Note: {{contact.note}} </ion-label>
+    </div>
+
+    <div *ngIf="contact.emails">
+      <div *ngFor="let email of contact.emails">
+        <ion-label> {{email.type}}: {{email.address}} </ion-label>
+      </div>
+    </div>
+
+    <div *ngIf="contact.urls">
+      <div *ngFor="let url of contact.urls">
+        <ion-label> {{url}}</ion-label>
+      </div>
+    </div>
+
+    <div *ngIf="contact.postalAddresses">
+      <div *ngFor="let adrs of contact.postalAddresses">
+        <ion-label>{{adrs.type}} address: {{adrs['formatted']}}</ion-label>
+      </div>
+    </div>
+    <!-- <ion-label *ngFor="let key of contact">
+      <h1>{{key | json}}</h1>
+      <p>{{key | json}}</p>
+      <p>{{key | json}}</p>
+    </ion-label> -->
+    <!-- <ion-label>
       <h1>{{contact.name.display}}</h1>
       <p>{{contact.phones[0].number}}</p>
       <p>{{contact.organization?.company}}</p>
-    </ion-label>
+    </ion-label> -->
     <!-- <ion-card-title>{{contact.name.display}}</ion-card-title>
     <ion-label color="dark">{{contact.phones[0].number}}</ion-label>
     <ion-label color="dark">{{contact.organization?.company}}</ion-label> -->
+    <ng-template #nameEx> </ng-template>
+    <ng-template #nameNotEx>
+      <h1></h1>
+    </ng-template>
   </ion-card>
 </ion-content>

@@ -6,7 +6,7 @@
 
 <ion-content color="light" [fullscreen]="true">
   <!-- <ion-card>{{contacts |json}}</ion-card> -->
-  <ion-grid *ngFor="let contact of contacts" class="gridCenter">
+  <!-- <ion-grid *ngFor="let contact of contacts" class="gridCenter">
     <ion-card class="contact gridCenter" (click)="openContact(contact)">
       <div>
         <ion-card-title>{{filterName(contact)}}</ion-card-title>
@@ -15,13 +15,30 @@
       </div>
       <ion-icon name="person-circle-outline"></ion-icon>
     </ion-card>
-    <!-- <ion-list *ngFor="let contact of contacts" color="light" [inset]="true">
+  </ion-grid> -->
+  <!-- <ion-list *ngFor="let contact of contacts" color="light" [inset]="true">
     <ion-item>
       <ion-label>{{filterName(contact)}}</ion-label>
       <p>{{filterPhone(contact)}}</p>
     </ion-item>
   </ion-list> -->
-  </ion-grid>
+
+  <!-- <ion-text> {{contacts |json}} </ion-text> -->
+
+  <ion-list *ngFor="let contact of contacts">
+    <ion-item button (click)="openContact(contact)">
+      <ion-avatar slot="start">
+        <img
+          alt="Silhouette of a person's head"
+          src="https://ionicframework.com/docs/img/demos/avatar.svg"
+        />
+      </ion-avatar>
+      <ion-label>
+        <h1>{{filterName(contact)}}</h1>
+        <p>{{filterPhone(contact)}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
 
 <!-- [routerLink]="['/contact']" [state]="contact" -->

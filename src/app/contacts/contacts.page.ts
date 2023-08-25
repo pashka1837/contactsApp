@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Contacts } from '@capacitor-community/contacts';
+import { ContactPayload, Contacts } from '@capacitor-community/contacts';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -14,17 +14,17 @@ export class ContactsPage implements OnInit {
   errorMsg: string;
   permission: any;
   someD:any;
-  contacts: any;
+  contacts: Array<ContactPayload>;
   
 
 
   ngOnInit(): void {
-    this.authServ.redirect();
+    console.log(`hey`)
+    // this.authServ.redirect();
     this.getContactsPermit();
   } 
 
   async getContactsPermit() {
-  //  this.permission = Contacts.requestPermissions().subscribe(v=>)
   try{
     let permission = await Contacts.requestPermissions();
     if(!permission?.contacts) return;
@@ -35,21 +35,31 @@ export class ContactsPage implements OnInit {
         emails: true,
         birthday: true
       }});
+      // this.contacts = data.contacts.sort(this.sortContactsByName);
       this.contacts = data.contacts;
+
     }
   }
   catch (e) {
     this.cathcPermError(e)
   } 
+  } 
+  
+  sortContactsByName(a :ContactPayload,b: ContactPayload) :any {
+    let nameA = a.name;
+    let nameB = b.name;
+    // if(!nameA) nameA.display = 'z';
+    // if(!nameB) nameB.display = 'z';
+    return nameA.display.localeCompare(nameB.display);    
   }
 
-  filterName(cont){
+  filterName(cont:ContactPayload){
     let name = cont.name;
     if(name) return name.display;
     return 'No Name Provided';
   }
 
-  filterPhone(cont) {
+  filterPhone(cont:ContactPayload) {
     let phoneArr = cont.phones;
     if(phoneArr) return phoneArr[0].number;
     return 'No Phone Provided'   
@@ -59,9 +69,8 @@ export class ContactsPage implements OnInit {
      this.errorMsg = e;
   } 
 
-  openContact(contact) {
-    this.router.navigate(['/contact'], {state: {contact}})
-    
+  openContact(contact:ContactPayload) :void {
+    this.router.navigate(['/contact'], {state: {contact}});    
   }
 
 }

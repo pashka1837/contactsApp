@@ -26,7 +26,7 @@
   <!-- <ion-text> {{contacts |json}} </ion-text> -->
 
   <ion-list *ngFor="let contact of contacts">
-    <ion-item button (click)="openContact(contact)">
+    <ion-item detail="true" button (click)="openContact(contact)">
       <ion-avatar slot="start">
         <img
           alt="Silhouette of a person's head"

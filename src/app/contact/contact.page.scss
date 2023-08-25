@@ -1,0 +1,38 @@
+.avaNameItem{
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 20px;
+    width: 100%;
+    padding: 3% 5%;   
+    // justify-items: center; 
+}
+
+.contactCardContent{
+    align-items: start;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(auto-fill(100px, 1fr));
+}
+
+hr {
+    border-top: 2px solid var(--ion-color-primary);
+}
+
+ion-icon[name="call-outline"]{
+    width: 0.8rem;
+    padding-right: 0.8rem;
+}
+
+ion-icon[name="at-outline"]{
+    width: 1rem;
+    padding-right: 0.5rem;
+}
+
+.contactProperty{
+    padding: 3% 5%;
+}
+.outerList{
+    background-color: var(--ion-color-light);
+}
+
+.innerList{
+    background-color: var(--ion-color-primary);
+}

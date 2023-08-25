@@ -33,10 +33,11 @@ export class ContactsPage implements OnInit {
         name: true,
         phones: true,
         emails: true,
-        birthday: true
+        birthday: true,
+        image: true
       }});
-      // this.contacts = data.contacts.sort(this.sortContactsByName);
-      this.contacts = data.contacts;
+      this.contacts = data.contacts.sort(this.sortContactsByName);
+      // this.contacts = data.contacts;
 
     }
   }
@@ -46,11 +47,17 @@ export class ContactsPage implements OnInit {
   } 
   
   sortContactsByName(a :ContactPayload,b: ContactPayload) :any {
-    let nameA = a.name;
-    let nameB = b.name;
-    // if(!nameA) nameA.display = 'z';
-    // if(!nameB) nameB.display = 'z';
-    return nameA.display.localeCompare(nameB.display);    
+    let contactA:ContactPayload  = a;
+    let contactB:ContactPayload = b;
+    // let nameA = contactA?.name.display || `Z`;
+    // let nameB = contactB?.name.display || `Z`;
+    let nameA =``;
+    let nameB =``;
+    if(contactA.name) nameA = contactA.name.display;
+    else nameA = `X`
+    if(contactB.name) nameB = contactB.name.display;
+    else nameB = `X`;
+    return nameA.localeCompare(nameB);    
   }
 
   filterName(cont:ContactPayload){

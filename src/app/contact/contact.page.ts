@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit, TemplateRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { BirthdayPayload, ContactPayload } from '@capacitor-community/contacts';
 
@@ -8,15 +8,17 @@ import { BirthdayPayload, ContactPayload } from '@capacitor-community/contacts';
   styleUrls: ['./contact.page.scss'],
 })
 export class ContactPage implements OnInit {
+  
   birthday: string|null;
   note: string | null;
-  emails: any;
+  // emails: any;
+  imgUrl: string | null;
   constructor( private isAuth: AuthService) { }
 
   name: string;
   organization: Object | null;  
   contact: ContactPayload;
-  phones = [];
+  phones: Array<Phone> = [];
   
   
   ngOnInit(): void {
@@ -38,10 +40,10 @@ export class ContactPage implements OnInit {
   // }
 
   decompose(contact:ContactPayload): void {
-    delete contact.contactId;
+    // delete contact.contactId;
     
     this.name = this.getName(contact);
-    delete contact.name;
+    // delete contact.name;
 
     this.getPhones(contact);
     // delete contact.phones;
@@ -49,6 +51,8 @@ export class ContactPage implements OnInit {
     this.organization = this.getOrganization(contact);
 
     this.birthday = this.getBirthday(contact);
+
+    this.imgUrl = this.getImage(contact);
 
     // this.note = contact.note || null;
     
@@ -80,7 +84,8 @@ export class ContactPage implements OnInit {
       }
       else  this.phones.push({type: curPhone.type, number: curPhone.number});
     }
-    else this.phones.push({type: 'Phone Number', number: 'Not Provided'});
+    // else this.phones.push({type: 'Phone Number', number: 'Not Provided'});
+    
   }
 
   getOrganization(contact) {
@@ -115,6 +120,20 @@ export class ContactPage implements OnInit {
   //   }
   // }
 
+  getImage(contact) {
+    let imgUrl= ``;
+    if(contact.image) {
+      imgUrl = contact.image.base64String;
+      return imgUrl;
+    }
+    return null;
+  }
+
 
   
 } 
+
+interface Phone {
+  type: string,
+  number: string
+}

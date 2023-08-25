@@ -7,69 +7,75 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="dark" [fullscreen]="true">
-  <ion-card color="dark">
-    <ion-text></ion-text>
-    <br />
-
-    <ion-text>{{contact |json}}</ion-text>
-    <ion-label>
-      <h1>{{name}}</h1>
-    </ion-label>
-
-    <div *ngFor="let d of phones ">
-      <ion-label>
-        <h1>{{d.type}}: {{d.number}}</h1>
-      </ion-label>
-    </div>
-
-    <div *ngIf="organization">
-      <ion-label *ngFor="let prop of organization | keyvalue">
-        <h1 *ngIf="prop.value">{{prop.key}}: {{prop.value}}</h1>
-      </ion-label>
-    </div>
-
-    <div *ngIf="birthday">
-      <ion-label> Birthday: {{birthday}} </ion-label>
-    </div>
-
-    <div *ngIf="contact.note">
-      <ion-label> Note: {{contact.note}} </ion-label>
-    </div>
-
-    <div *ngIf="contact.emails">
-      <div *ngFor="let email of contact.emails">
-        <ion-label> {{email.type}}: {{email.address}} </ion-label>
+<ion-content color="light" [fullscreen]="true">
+  <ion-card color="light">
+    <ion-grid class="gridCenter avaNameItem">
+      <ion-avatar>
+        <img
+          #pic
+          [src]="imgUrl ? imgUrl:
+        'https://ionicframework.com/docs/img/demos/avatar.svg'"
+          alt="person
+        image"
+        />
+      </ion-avatar>
+      <div>
+        <ion-card-title>{{name}}</ion-card-title>
+        <ion-card-subtitle *ngIf="organization?.['Company']"
+          >{{organization?.['Company']}}</ion-card-subtitle
+        >
       </div>
-    </div>
+    </ion-grid>
+    <hr />
 
-    <div *ngIf="contact.urls">
-      <div *ngFor="let url of contact.urls">
-        <ion-label> {{url}}</ion-label>
-      </div>
-    </div>
+    <ion-card-content>
+      <ion-card *ngIf="phones.length > 0" class="contactProperty">
+        <ion-card-title>Phone numbers:</ion-card-title>
+        <ion-list lines="none">
+          <ion-item *ngFor="let phone of phones">
+            <ion-icon name="call-outline"></ion-icon>
+            <ion-label>{{phone.type}}: {{phone.number}} </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card>
 
-    <div *ngIf="contact.postalAddresses">
-      <div *ngFor="let adrs of contact.postalAddresses">
-        <ion-label>{{adrs.type}} address: {{adrs['formatted']}}</ion-label>
-      </div>
-    </div>
-    <!-- <ion-label *ngFor="let key of contact">
-      <h1>{{key | json}}</h1>
-      <p>{{key | json}}</p>
-      <p>{{key | json}}</p>
-    </ion-label> -->
-    <!-- <ion-label>
-      <h1>{{contact.name.display}}</h1>
-      <p>{{contact.phones[0].number}}</p>
-      <p>{{contact.organization?.company}}</p>
-    </ion-label> -->
-    <!-- <ion-card-title>{{contact.name.display}}</ion-card-title>
-    <ion-label color="dark">{{contact.phones[0].number}}</ion-label>
-    <ion-label color="dark">{{contact.organization?.company}}</ion-label> -->
-    <ng-template #nameEx> </ng-template>
-    <ng-template #nameNotEx>
-      <h1></h1>
-    </ng-template>
+      <ion-card *ngIf="contact.emails" class="contactProperty">
+        <ion-card-title>Emails:</ion-card-title>
+        <ion-list lines="none">
+          <ion-item *ngFor="let email of contact.emails">
+            <ion-icon name="at-outline"></ion-icon>
+            <ion-label>{{email.type}}: {{email.address}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+
+      <ion-card *ngIf="contact.postalAddresses" class="contactProperty">
+        <ion-card-title>Addresses:</ion-card-title>
+        <ion-list lines="none">
+          <ion-item *ngFor="let adrs of contact.postalAddresses">
+            <ion-label>{{adrs.type}}: {{adrs['formatted']}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+
+      <ion-card class="contactProperty" *ngIf="contact.urls">
+        <ion-card-title>Web Sites:</ion-card-title>
+        <ion-list lines="none">
+          <ion-item *ngFor="let url of contact.urls">
+            <ion-label>{{url}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card>
+
+      <ion-card class="contactProperty" *ngIf="birthday">
+        <ion-card-title>Birthday:</ion-card-title>
+        <ion-label>{{birthday}}</ion-label>
+      </ion-card>
+
+      <ion-card class="contactProperty" *ngIf="contact.note">
+        <ion-card-title>Note:</ion-card-title>
+        <ion-label>{{contact.note}}</ion-label>
+      </ion-card>
+    </ion-card-content>
   </ion-card>
 </ion-content>

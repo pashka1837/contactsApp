@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { tap, delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +13,14 @@ export class AuthService {
   password = `1`;
   isAuthed: boolean = false;
 
-  validate(uN,p): boolean {
-   if(uN === this.userName && p === this.password) {
-    this.isAuthed = true;
-    return true;
-  }
-   return false;
-  }
-
-  redirect() {
-    if(!this.isAuthed) this.router.navigate(['/login']);
+  validate(userName,password): void {
+  if(userName === this.userName && password === this.password) this.isAuthed = true; 
+ }
+ 
+  redirect(path:string): void {
+    if(!this.isAuthed) this.router.navigate([path]);
   }  
 }
+
+
+

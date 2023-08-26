@@ -25,7 +25,6 @@ export class ContactsPage implements OnInit {
   
 
  async ngOnInit(): Promise<void> {
-    // this.authServ.redirect();
     await this.getContacts();
     BarcodeScanner.isSupported().then((result) => {
       this.isSupported = result.supported;

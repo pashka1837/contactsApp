@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import {  FormBuilder, Validators } from '@angular/forms';
 import { myValidator } from '../validators/nospace.validator';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
@@ -9,13 +9,12 @@ import { Router } from '@angular/router';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
-  constructor(private fb: FormBuilder, private authServ: AuthService, public router: Router) {}
 
-  authFail = false;
-  userName:string;
-  password: string;
-  
+
+export class LoginPage  {
+  constructor(private fb: FormBuilder, private authServ: AuthService, public router: Router) {}
+  spinner  =false;
+  authFail = false;  
 
   form = this.fb.group({
     userName: ['', [
@@ -26,24 +25,26 @@ export class LoginPage implements OnInit {
        Validators.required,
        myValidator.noSpaceValidation,
     ]]
- });
+  });
 
-  ngOnInit() {
-    if(this.authServ.validate(this.userName, this.password)) this.router.navigate(['/contacts'])
+  async await(ms){
+    return new Promise((resolve)=>setTimeout(resolve, ms))};
+
+  async onSubmit():Promise<void> {
+    this.spinner = true;      
+    let userName =  this.fc.userName.value;
+    let password =  this.fc.password.value;
+    this.authServ.validate(userName, password);
+    await this.await(1200);
+    this.spinner = false;  
+    if(this.authServ.isAuthed) this.router.navigate(['/contacts']);
+    else {
+      this.authFail = true;
+      this.form.reset({userName:'', password: ''});
+    }
   }
 
-  onSubmit(unInput, psInput) {    
-    let userName =  this.fc.userName;
-    let password =  this.fc.password;
-    this.userName = userName.value
-    this.password = password.value
-    unInput.value = ``;
-    psInput.value = ``;
-    if(this.authServ.validate(userName.value, password.value)) this.router.navigate(['/contacts'])
-    else this.authFail = true;
-  }
-
-  clear() {
+  clear():void {
     this.authFail = false;
   }
 

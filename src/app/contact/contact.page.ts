@@ -1,6 +1,8 @@
-import { AfterContentInit, Component, OnInit, TemplateRef } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { BirthdayPayload, ContactPayload, OrganizationPayload } from '@capacitor-community/contacts';
+import { Phone } from '../models/contactPhone';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -8,7 +10,7 @@ import { BirthdayPayload, ContactPayload, OrganizationPayload } from '@capacitor
   styleUrls: ['./contact.page.scss'],
 })
 export class ContactPage implements OnInit {
-  constructor( private isAuth: AuthService) { }
+  constructor( private authServ: AuthService, private router : Router) { }
 
   spaceRegex: RegExp = /\s|\-/g; 
 
@@ -23,7 +25,6 @@ export class ContactPage implements OnInit {
   imgUrl: string | null;
   
   ngOnInit(): void {
-    // this.isAuth.redirect();
     this.contact = history.state.contact; 
     this.decompose(this.contact);
   }
@@ -92,13 +93,7 @@ export class ContactPage implements OnInit {
     let imgUrl= ``;
     if(contact.image) imgUrl = contact.image.base64String;
     return imgUrl || null;
-  }
-
-
-  
+  }  
 } 
 
-interface Phone {
-  type: string,
-  number: string
-}
+

@@ -22,23 +22,12 @@ export class ContactPage implements OnInit {
   
   
   ngOnInit(): void {
-    // this.isAuth.redirect();
+    this.isAuth.redirect();
     this.contact = history.state.contact; 
     this.decompose(this.contact);
-    
-    
-
-    // for( let key in this.contact) {
-    //   if(key)
-    //   this.data.push(key);
-    // }  
   }
 
-  // filterName(key){
-  //   if(name) return name.display;
-  //   return 'No Name Provided';
-  // }
-
+  
   decompose(contact:ContactPayload): void {
     // delete contact.contactId;
     
@@ -111,14 +100,6 @@ export class ContactPage implements OnInit {
     else birthday = null;
     return birthday;    
   }
-
-  // getEmails(contact) {
-  //   if(contact.emails) {
-  //     contact.emails.forEaach(email=> {
-  //       this.emails.push({})
-  //     })
-  //   }
-  // }
 
   getImage(contact) {
     let imgUrl= ``;

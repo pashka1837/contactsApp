@@ -20,7 +20,7 @@ export class ContactsPage implements OnInit {
 
   ngOnInit(): void {
     console.log(`hey`)
-    // this.authServ.redirect();
+    this.authServ.redirect();
     this.getContactsPermit();
   } 
 

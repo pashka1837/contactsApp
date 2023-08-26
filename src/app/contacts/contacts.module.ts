@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { ContactsPageRoutingModule } from './contacts-routing.module';
 
 import { ContactsPage } from './contacts.page';
+import { RequestPermissionsService } from '../services/request-permissions.service';
+import { ContactsService } from '../services/contacts.service';
 
 @NgModule({
   imports: [
@@ -15,6 +17,7 @@ import { ContactsPage } from './contacts.page';
     IonicModule,
     ContactsPageRoutingModule
   ],
-  declarations: [ContactsPage]
+  declarations: [ContactsPage],
+  providers: [RequestPermissionsService, ContactsService]
 })
 export class ContactsPageModule {}

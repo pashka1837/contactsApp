@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ContactPayload, Contacts } from '@capacitor-community/contacts';
-import { Observable } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { RequestPermissionsService } from '../services/request-permissions.service';
+import { AlertService } from '../services/alert.service';
+import { AlertMessage } from '../models/alertMsgs';
+import { ContactsService } from '../services/contacts.service';
 
 @Component({
   selector: 'app-contacts',
@@ -13,9 +17,9 @@ import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 })
 export class ContactsPage implements OnInit {
   data: any;
-  constructor(private authServ: AuthService, private router: Router, private alertController: AlertController) {}
+  constructor(private contactServ: ContactsService, private authServ: AuthService, private router: Router, private alert: AlertService, private permission: RequestPermissionsService) {}
   errorMsg: string;
-  permission: any;
+  
   someD:any;
   contacts: Array<ContactPayload> | null;
   isSupported = false;
@@ -23,64 +27,51 @@ export class ContactsPage implements OnInit {
   
   
 
-  ngOnInit(): void {
+ async ngOnInit(): Promise<void> {
     // this.authServ.redirect();
-    this.getContacts();  
+    // this.getContacts();  
+    let contacts = await this.contactServ.getContacts();
+    this.contacts = contacts.sort(this.sortContactsByName);
     BarcodeScanner.isSupported().then((result) => {
       this.isSupported = result.supported;
     });  
   } 
 
-  async getContacts() {
-    const errorPermisMsg = 'Please grant contacts permisson.'
-    const granted = await this.requestPermissionsContacts();
-    if(!granted) {
-      this.presentAlert(errorPermisMsg);
-      this.contacts = null;
-      return;
-    }
-    let data = await Contacts.getContacts({projection: {
-      name: true,
-      phones: true,
-      emails: true,
-      birthday: true,
-      image: true
-    }});
-    this.contacts =  data.contacts.sort(this.sortContactsByName); 
-  }
+  
 
-  async scan(): Promise<void> {
-    const errorPermisMsg = 'Please grant camera permisson.'
-    const granted = await this.requestPermissionsCamera();
+  async scan(): Promise<Barcode[]> {
+    const alertMsg: AlertMessage = {
+      header: 'Permission denied!',
+      message: 'Please grant camera permisson.',
+      buttons: ['OK']
+    } 
+    const granted = await this.permission.requestPermissionsCamera();
+    let scanner: Barcode[] = [];
     if (!granted) {
-      this.presentAlert(errorPermisMsg);
-      return;
+      this.alert.presentAlert(alertMsg);
+      return scanner;
     }
     const { barcodes } = await BarcodeScanner.scan();
+    return barcodes;
+  }
+
+  async getScan() {
+    const alertMsg: AlertMessage = {
+      header: 'Permission denied!',
+      message: 'Please grant camera permisson.',
+      buttons: ['OK']
+    } 
+    let barcodes = await this.scan()
     const rawValue = barcodes[barcodes.length-1].rawValue;
     this.data = rawValue
-    this.presentAlert(rawValue);
+    this.alert.presentAlert(alertMsg);
     this.barcodes.push(...barcodes);
+
   }
   
-  async requestPermissionsContacts(): Promise<boolean>{
-    const {contacts} = await Contacts.requestPermissions();
-    return contacts === 'granted' || contacts === "prompt" ;
-  }
+  
 
-  async requestPermissionsCamera(): Promise<boolean>{
-    const {camera} = await BarcodeScanner.requestPermissions();
-    return camera === 'granted' || camera === "limited" ;
-  }
-
-  async presentAlert(message: string): Promise<void> {
-    const alert = await this.alertController.create({
-      header: 'Permission denied',
-      message,
-      buttons: ['OK'],
-    });
-    await alert.present();
-  }
+  
   
   sortContactsByName(a :ContactPayload,b: ContactPayload) :any {
     let contactA:ContactPayload  = a;
@@ -116,37 +107,90 @@ export class ContactsPage implements OnInit {
 
 }
 
-/* async getContactsPermit() {
-  //  this.permission = Contacts.requestPermissions().subscribe(v=>)
-   let permission = await Contacts.requestPermissions().catch(this.cathcPermError); 
-   if(!permission?.contacts) 
-   this.permission = permission;
-    //  this.someD = permission.contacts
-  }*/
 
+  // async scan(): Promise<void> {
+  //   const errorPermisMsg = 'Please grant camera permisson.'
+  //   const granted = await this.requestPermissionsCamera();
+  //   if (!granted) {
+  //     this.presentAlert(errorPermisMsg);
+  //     return;
+  //   }
+  //   const { barcodes } = await BarcodeScanner.scan();
+  
+  //   const rawValue = barcodes[barcodes.length-1].rawValue;
+  //   this.data = rawValue
+  //   this.presentAlert(rawValue);
+  //   this.barcodes.push(...barcodes);
+  // }
 
 
   // ngOnInit(): void {
-  //   this.authServ.redirect();
-  //   this.getContactsPermit();    
+  //   // this.authServ.redirect();
+  //   this.getContacts();  
+  //   BarcodeScanner.isSupported().then((result) => {
+  //     this.isSupported = result.supported;
+  //   });  
   // } 
 
-  // async getContactsPermit() {
-  //   try{
-  //     let permission = await Contacts.requestPermissions();
-  //     if(!permission?.contacts) return;
-  //     else if(permission.contacts === 'granted') {
-  //       let data = await Contacts.getContacts({projection: {
-  //         name: true,
-  //         phones: true,
-  //         emails: true,
-  //         birthday: true,
-  //         image: true
-  //       }});
-  //       this.contacts =  data.contacts.sort(this.sortContactsByName);
-  //     }
+  // async getContacts() {
+  //   const errorPermisMsg = 'Please grant contacts permisson.'
+  //   const granted = await this.requestPermissionsContacts();
+  //   if(!granted) {
+  //     this.presentAlert(errorPermisMsg);
+  //     this.contacts = null;
+  //     return;
   //   }
-  //   catch (e) {
-  //     this.cathcPermError(e)
-  //   } 
+  //   let data = await Contacts.getContacts({projection: {
+  //     name: true,
+  //     phones: true,
+  //     emails: true,
+  //     birthday: true,
+  //     image: true
+  //   }});
+  //   this.contacts =  data.contacts.sort(this.sortContactsByName); 
+  // }
+
+  // async scan(): Promise<Barcode[]> {
+  //   const errorPermisMsg = 'Please grant camera permisson.'
+  //   const granted = await this.requestPermissionsCamera();
+  //   let scanner: Barcode[] = [];
+  //   if (!granted) {
+  //     this.presentAlert(errorPermisMsg);
+  //     return scanner;
+  //   }
+  //   const { barcodes } = await BarcodeScanner.scan();
+  //   return barcodes;
+  
+  //   // const rawValue = barcodes[barcodes.length-1].rawValue;
+  //   // this.data = rawValue
+  //   // this.presentAlert(rawValue);
+  //   // this.barcodes.push(...barcodes);
+  // }
+
+  // async getScan() {
+  //   let barcodes = await this.scan()
+  //   const rawValue = barcodes[barcodes.length-1].rawValue;
+  //   this.data = rawValue
+  //   this.presentAlert(rawValue);
+  //   this.barcodes.push(...barcodes);
+
+  // }
+  
+  // async requestPermissionsContacts(): Promise<boolean>{
+  //   const {contacts} = await Contacts.requestPermissions();
+  //   return contacts === 'granted' || contacts === "prompt" ;
+  // }
+
+  // async requestPermissionsCamera(): Promise<boolean>{
+  //   const {camera} = await BarcodeScanner.requestPermissions();
+  //   return camera === 'granted' || camera === "limited" ;
+  // }
+
+  // async presentAlert(message: string): Promise<void> {
+  //   const alert = await this.alertController.create({
+  //     header: 'Permission denied',
+  //     message,
+  //     buttons: ['OK'],
+  //   });
+  //   await alert.present();
   // }

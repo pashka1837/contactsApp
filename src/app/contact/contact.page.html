@@ -3,7 +3,7 @@
     <ion-buttons color="light" slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Contact</ion-title>
+    <ion-title>Contact Info</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -21,8 +21,9 @@
       </ion-avatar>
       <div>
         <ion-card-title>{{name}}</ion-card-title>
-        <ion-card-subtitle *ngIf="organization?.['Company']"
-          >{{organization?.['Company']}}</ion-card-subtitle
+        <ion-card-subtitle *ngIf="organization"
+          >{{organization.company}} {{organization.department}}
+          {{organization.jobTitle}}</ion-card-subtitle
         >
       </div>
     </ion-grid>

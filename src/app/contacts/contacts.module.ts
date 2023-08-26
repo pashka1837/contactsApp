@@ -9,6 +9,7 @@ import { ContactsPageRoutingModule } from './contacts-routing.module';
 import { ContactsPage } from './contacts.page';
 import { RequestPermissionsService } from '../services/request-permissions.service';
 import { ContactsService } from '../services/contacts.service';
+import { ScanBarcodeService } from '../services/scan-barcode.service';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { ContactsService } from '../services/contacts.service';
     ContactsPageRoutingModule
   ],
   declarations: [ContactsPage],
-  providers: [RequestPermissionsService, ContactsService]
+  providers: [RequestPermissionsService, ContactsService, ScanBarcodeService]
 })
 export class ContactsPageModule {}

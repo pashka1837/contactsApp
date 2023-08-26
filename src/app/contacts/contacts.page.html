@@ -1,43 +1,20 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>Contacts</ion-title>
+
+    <ion-button
+      color="light"
+      fill="clear"
+      slot="end"
+      (click)="getScan()"
+      [disabled]="!isSupported"
+    >
+      <ion-icon name="scan"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="light" [fullscreen]="true">
-  <!-- <ion-card>{{contacts |json}}</ion-card> -->
-  <!-- <ion-grid *ngFor="let contact of contacts" class="gridCenter">
-    <ion-card class="contact gridCenter" (click)="openContact(contact)">
-      <div>
-        <ion-card-title>{{filterName(contact)}}</ion-card-title>
-        <br />
-        <ion-text color="dark">{{filterPhone(contact)}}</ion-text>
-      </div>
-      <ion-icon name="person-circle-outline"></ion-icon>
-    </ion-card>
-  </ion-grid> -->
-  <!-- <ion-list *ngFor="let contact of contacts" color="light" [inset]="true">
-    <ion-item>
-      <ion-label>{{filterName(contact)}}</ion-label>
-      <p>{{filterPhone(contact)}}</p>
-    </ion-item>
-  </ion-list> -->
-
-  <!-- <ion-text> {{contacts |json}} </ion-text> -->
-
-  <ion-list>
-    <ion-item *ngFor="let barcode of barcodes">
-      <ion-label position="stacked">{{ barcode.format }}</ion-label>
-      <ion-input type="text" [value]="barcode.rawValue"></ion-input>
-    </ion-item>
-  </ion-list>
-  <ion-text>data:x {{data}}</ion-text>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="getScan()" [disabled]="!isSupported">
-      <ion-icon name="scan"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
   <ion-list *ngFor="let contact of contacts">
     <ion-item detail="true" button (click)="openContact(contact)">
       <ion-avatar slot="start">
@@ -53,5 +30,3 @@
     </ion-item>
   </ion-list>
 </ion-content>
-
-<!-- [routerLink]="['/contact']" [state]="contact" -->

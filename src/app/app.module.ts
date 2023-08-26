@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './services/auth.service';
 import { AlertService } from './services/alert.service';
-import { AuthGuard } from './auth.guard';
-import { PreventLoginGuard } from './prevent-login.guard';
+import { AuthGuard } from './guards/auth.guard';
+import { PreventLoginGuard } from './guards/prevent-login.guard';
 
 @NgModule({
   declarations: [AppComponent],

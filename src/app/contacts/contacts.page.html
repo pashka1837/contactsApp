@@ -25,6 +25,19 @@
 
   <!-- <ion-text> {{contacts |json}} </ion-text> -->
 
+  <ion-list>
+    <ion-item *ngFor="let barcode of barcodes">
+      <ion-label position="stacked">{{ barcode.format }}</ion-label>
+      <ion-input type="text" [value]="barcode.rawValue"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-text>data: {{data}}</ion-text>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="scan()" [disabled]="!isSupported">
+      <ion-icon name="scan"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-list *ngFor="let contact of contacts">
     <ion-item detail="true" button (click)="openContact(contact)">
       <ion-avatar slot="start">

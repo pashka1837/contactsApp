@@ -16,6 +16,10 @@ log.txt
 /.sourcemaps
 /.versions
 /coverage
+/icons
+
+# Android
+/android
 
 # Ionic
 /.ionic
@@ -46,6 +50,7 @@ yarn-error.log
 
 # Visual Studio Code
 .vscode/*
+/.vscode
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

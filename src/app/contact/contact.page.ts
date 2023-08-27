@@ -67,7 +67,7 @@ export class ContactPage implements OnInit {
     }
   }
 
-  getOrganization(contact) {
+  getOrganization(contact) :OrganizationPayload| null  {
     let organization: OrganizationPayload;
     if(contact.organization) {
       organization = {

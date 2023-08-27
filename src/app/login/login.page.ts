@@ -3,6 +3,7 @@ import {  FormBuilder, Validators } from '@angular/forms';
 import { myValidator } from '../validators/nospace.validator';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,11 @@ export class LoginPage  {
   constructor(private fb: FormBuilder, private authServ: AuthService, public router: Router) {}
   spinner  =false;
   authFail = false;  
+
+  ionViewWillEnter() {
+    StatusBar.setOverlaysWebView({ overlay: false });
+    StatusBar.setBackgroundColor({color: '#3880ff'});
+  }
 
   form = this.fb.group({
     userName: ['', [

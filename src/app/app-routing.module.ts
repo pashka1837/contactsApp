@@ -7,21 +7,25 @@ const routes: Routes = [
  {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    title: 'ContactApp'
   },
   {
     path: 'login',
+    title: 'Login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
     canActivate: [PreventLoginGuard]
     
   },
   {
     path: 'contacts',
+    title: 'Contacts',
     loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'contact',
+    title: 'Contact',
     loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule),
     canActivate: [AuthGuard]
   },

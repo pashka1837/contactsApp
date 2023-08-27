@@ -9,7 +9,7 @@ import { tap, delay } from 'rxjs/operators';
 export class AuthService {
   constructor(private router: Router) { }
   
-  userName = `1`;
+  userName = `greeTgo`;
   password = `1`;
   isAuthed: boolean = false;
 

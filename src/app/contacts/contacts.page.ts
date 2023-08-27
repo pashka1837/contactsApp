@@ -8,6 +8,7 @@ import { AlertService } from '../services/alert.service';
 import { AlertMessage } from '../models/alertMsgs';
 import { ContactsService } from '../services/contacts.service';
 import { ScanBarcodeService } from '../services/scan-barcode.service';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-contacts',
@@ -20,9 +21,12 @@ export class ContactsPage implements OnInit {
   
   contacts: Array<ContactPayload>;
   isSupported = false;
-  barcodes: Barcode[] = [];
+  barcodes: Barcode[] = []; 
   
-  
+  ionViewWillEnter(): void {
+    StatusBar.setOverlaysWebView({ overlay: false });
+    StatusBar.setBackgroundColor({color: '#3880ff'});
+  }
 
  async ngOnInit(): Promise<void> {
     await this.getContacts();

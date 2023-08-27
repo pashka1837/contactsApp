@@ -10,6 +10,7 @@ import { AuthService } from './services/auth.service';
 import { AlertService } from './services/alert.service';
 import { AuthGuard } from './guards/auth.guard';
 import { PreventLoginGuard } from './guards/prevent-login.guard';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,4 +18,10 @@ import { PreventLoginGuard } from './guards/prevent-login.guard';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, AuthService, AlertService, AuthGuard, PreventLoginGuard],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  ionViewWillEnter() {
+    StatusBar.setOverlaysWebView({ overlay: false });
+    StatusBar.setBackgroundColor({color: '#3880ff'}); 
+  }
+ 
+}

@@ -2,7 +2,7 @@
 
 ## 1 Инструкция по запуску на смартфоне Android:
 
-### 1.1 Скачиваем .apk файл по ссылке https://drive.google.com/file/d/1fhS-MR_K8ahKLyuW1CSYYWDb0GgvpfLw/view?usp=sharing 
+### 1.1 Скачиваем .apk файл по ссылке [https://drive.google.com/file/d/1fhS-MR_K8ahKLyuW1CSYYWDb0GgvpfLw/view?usp=sharing](https://drive.google.com/file/d/1-cHgWZ8XFnjR1toRl2l7Sp-f-bqRFqP5/view?usp=sharing) 
 
 ### 1.2 Добавляем скачанынй .apk файл на телефоне и производим установку приложения
 

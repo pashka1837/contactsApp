@@ -16,12 +16,10 @@ log.txt
 /coverage
 /icons
 
-# Android
-/android
+
 
 # Ionic
 /.ionic
-/www
 /platforms
 /plugins
 
